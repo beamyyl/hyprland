@@ -1,0 +1,61 @@
+@define-color backgrounddark #0f1117;
+@define-color backgroundlight #1a1d24;
+@define-color accentcolor #89b4fa;
+@define-color textcolor1 #cdd6f4;
+@define-color textcolor2 #bac2de;
+@define-color urgentcolor #f38ba8;
+@define-color disabledcolor #585b70;
+@define-color translucent rgba(0, 0, 0, 0.5);
+
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free";
+  font-weight: bold;
+  font-size: 14px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: rgba(15, 17, 23, 0.6); /* dark blue-black with 60% opacity */
+  color: @textcolor1;
+}
+
+#custom-apps {
+  background-color: @backgrounddark;
+  color: @textcolor1;
+  border-radius: 15px;
+  margin: 10px 8px 10px 15px;
+  padding: 2px 12px;
+}
+
+#hyprland-window {
+  background-color: @backgrounddark;
+  color: @textcolor2;
+  border-radius: 15px;
+  margin: 10px 15px 10px 0px;
+  padding: 2px 14px;
+}
+
+#tray,
+#battery,
+#pulseaudio,
+#clock,
+#custom-logout {
+  background-color: @backgroundlight;
+  padding: 2px 10px;
+  margin: 10px 5px 10px 5px;
+  border-radius: 15px;
+}
+
+#battery.warning {
+  color: orange;
+}
+#battery.critical {
+  color: @urgentcolor;
+}
+
+#pulseaudio.muted {
+  color: @disabledcolor;
+}
+

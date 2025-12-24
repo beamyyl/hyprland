@@ -1,0 +1,42 @@
+{
+  "layer": "top",
+  "position": "top",
+  "modules-left": ["custom/apps", "hyprland/window"],
+  "modules-right": ["tray", "battery", "pulseaudio", "clock", "custom/logout"],
+
+  "custom/apps": {
+    "format": "󰣇 Apps",
+    "on-click": "wofi --show drun"
+  },
+
+  "custom/logout": {
+    "format": "󰗼 Exit",
+    "on-click": "~/.config/waybar/logoutwofi.sh"
+  },
+
+  "clock": {
+    "format": " {:%H:%M %d/%m/%Y}",
+    "tooltip-format": "{:%A, %B %d %Y}"
+  },
+
+  "hyprland/window": {
+    "format": "{}",
+    "max-length": 50,
+    "tooltip": false
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "tooltip": false,
+    "scroll-step": 5,
+    "on-click": "pavucontrol",
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+    "icons": {
+      "muted": "",
+      "low": "",
+      "medium": "",
+      "high": ""
+    }
+}
+}
