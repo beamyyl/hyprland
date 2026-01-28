@@ -1,27 +1,35 @@
 {
   "layer": "top",
   "position": "top",
-  "modules-left": ["custom/apps", "hyprland/window"],
+  "margin-left": 10,
+  "margin-right": 10,
+  "margin-top": 5,
+  "modules-left": ["custom/apps", "hyprland/workspaces", "hyprland/window"],
   "modules-right": ["tray", "battery", "pulseaudio", "clock", "custom/logout"],
 
   "custom/apps": {
-    "format": "󰣇 Apps",
-    "on-click": "wofi --show drun"
+    "format": "󰍜 Apps",
+    "on-click": "rofi -show drun"
+  },
+
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "on-click": "activate"
   },
 
   "custom/logout": {
     "format": "󰗼 Exit",
-    "on-click": "~/.config/waybar/logoutwofi.sh"
+    "on-click": "hyprctl dispatch exit"
   },
 
   "clock": {
-    "format": " {:%H:%M %d/%m/%Y}",
+    "format": "  {:%H:%M %d/%m/%Y}",
     "tooltip-format": "{:%A, %B %d %Y}"
   },
 
   "hyprland/window": {
     "format": "{}",
-    "max-length": 50,
+    "max-length": 30,
     "tooltip": false
   },
 
@@ -30,13 +38,22 @@
     "tooltip": false,
     "scroll-step": 5,
     "on-click": "pavucontrol",
-    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
-    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
     "icons": {
-      "muted": "",
-      "low": "",
-      "medium": "",
-      "high": ""
+      "muted": " ",
+      "default": [" ", " ", " "]
     }
-}
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-icons": [" ", " ", " ", " ", " "]
+  },
+
+  "tray": {
+    "spacing": 10
+  }
 }
