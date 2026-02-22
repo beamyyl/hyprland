@@ -1,2 +1,2 @@
 Prerequisites:
-hyprland wofi waybar hyprpaper kitty hyprshot thunar nerd-fonts
+hyprland rofi waybar hyprpaper alacritty hyprshot pcmanfm ttf-iosevka-nerd
