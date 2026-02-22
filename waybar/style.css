@@ -1,70 +1,69 @@
-@define-color bg #2E3440;
-@define-color light-bg #3B4252;
-@define-color accent #81A1C1;
-@define-color text #ECEFF4;
-@define-color urgent #BF616A;
+@define-color bg #1a1b26;
+@define-color bg_alt #24283b;
+@define-color fg #c0caf5;
+@define-color primary #7aa2f7;
+@define-color secondary #bb9af7;
+@define-color alert #f7768e;
+@define-color disabled #565f89;
 
 * {
-  border: none;
-  border-radius: 0;
-  /* font-family: "Iosevka Nerd Font", "Font Awesome 6 Free"; */
-  font-weight: bold;
-  font-size: 14px;
-  min-height: 0;
+    font-family: "Iosevka Nerd Font";
+    font-size: 14px;
+    border: none;
+    border-radius: 0;
 }
 
 window#waybar {
-  background: rgba(30, 34, 42, 0.7);
-  color: @text;
+    background-color: @bg;
+    color: @fg;
+    border-radius: 12px;
+    transition-property: background-color;
+    transition-duration: .5s;
 }
 
-#custom-apps,
+#custom-launcher,
 #workspaces,
 #window,
-#tray,
-#battery,
 #pulseaudio,
+#tray,
 #clock,
-#custom-logout {
-  background-color: @light-bg;
-  color: @text;
-  border-radius: 10px;
-  margin: 5px 3px;
-  padding: 0px 10px;
+#custom-exit {
+    padding: 0 10px;
 }
 
-#custom-apps {
-  color: @accent;
-  margin-left: 10px;
+#custom-launcher {
+    color: @primary;
+    font-size: 18px;
 }
 
 #workspaces button {
-  color: @text;
-  padding: 0 5px;
+    color: @fg;
+    padding: 0 5px;
 }
 
 #workspaces button.active {
-  color: @accent;
-  border-bottom: 2px solid @accent;
+    color: @primary;
+    background-color: @bg_alt;
+    border-bottom: 3px solid @primary;
 }
 
 #workspaces button.urgent {
-  color: @urgent;
+    background-color: @alert;
 }
 
-#battery.warning {
-  color: #EBCB8B;
+#window {
+    color: @primary;
 }
 
-#battery.critical {
-  color: @urgent;
+#pulseaudio {
+    color: @secondary;
 }
 
-#pulseaudio.muted {
-  color: #4C566A;
+#clock {
+    color: @primary;
 }
 
-#custom-logout {
-  margin-right: 10px;
-  color: @urgent;
+#custom-exit {
+    color: @alert;
+    margin-right: 5px;
 }
