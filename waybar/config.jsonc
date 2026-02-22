@@ -1,54 +1,69 @@
-{
-    "layer": "top",
-    "position": "top",
-    "height": 34,
-    "margin-top": 6,
-    "margin-left": 10,
-    "margin-right": 10,
-    "spacing": 4,
+@define-color bg #1a1b26;
+@define-color bg_alt #24283b;
+@define-color fg #c0caf5;
+@define-color primary #7aa2f7;
+@define-color secondary #bb9af7;
+@define-color alert #f7768e;
+@define-color disabled #565f89;
 
-    "modules-left": ["custom/launcher", "hyprland/workspaces", "hyprland/window"],
-    "modules-center": [],
-    "modules-right": ["pulseaudio", "tray", "clock", "custom/exit"],
+* {
+    font-family: "Iosevka Nerd Font";
+    font-size: 14px;
+    border: none;
+    border-radius: 0;
+}
 
-    "custom/launcher": {
-        "format": "",
-        "on-click": "rofi -show drun",
-        "tooltip": false
-    },
+window#waybar {
+    background-color: @bg;
+    color: @fg;
+    border-radius: 12px;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
 
-    "hyprland/workspaces": {
-        "format": "{name}",
-        "on-click": "activate"
-    },
+#custom-launcher,
+#workspaces,
+#window,
+#pulseaudio,
+#tray,
+#clock,
+#custom-exit {
+    padding: 0 10px;
+}
 
-    "hyprland/window": {
-        "format": "󱂬 {title}",
-        "separate-outputs": true,
-        "max-length": 30
-    },
+#custom-launcher {
+    color: @primary;
+    font-size: 18px;
+}
 
-    "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-muted": "󰝟",
-        "format-icons": {
-            "default": ["󰕾"]
-        }
-    },
+#workspaces button {
+    color: @fg;
+    padding: 0 5px;
+}
 
-    "tray": {
-        "icon-size": 18,
-        "spacing": 10
-    },
+#workspaces button.active {
+    color: @primary;
+    background-color: @bg_alt;
+    border-bottom: 3px solid @primary;
+}
 
-    "clock": {
-        "format": "{:%H:%M}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
-    },
+#workspaces button.urgent {
+    background-color: @alert;
+}
 
-    "custom/exit": {
-        "format": "",
-        "on-click": "hyprctl dispatch exit",
-        "tooltip": false
-    }
+#window {
+    color: @primary;
+}
+
+#pulseaudio {
+    color: @secondary;
+}
+
+#clock {
+    color: @primary;
+}
+
+#custom-exit {
+    color: @alert;
+    margin-right: 5px;
 }
