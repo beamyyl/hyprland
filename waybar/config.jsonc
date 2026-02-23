@@ -9,7 +9,7 @@
 
     "modules-left": ["custom/launcher", "hyprland/workspaces", "hyprland/window"],
     "modules-center": [],
-    "modules-right": ["pulseaudio", "tray", "clock", "custom/exit"],
+    "modules-right": ["pulseaudio", "tray", "battery", "clock", "custom/exit"],
 
     "custom/launcher": {
         "format": "",
@@ -39,6 +39,21 @@
     "tray": {
         "icon-size": 18,
         "spacing": 10
+    },
+
+    "battery": {
+        "battery": "BAT0",
+        "adapter": "AC0",
+        "interval": 10,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{icon} {time}",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
 
     "clock": {
