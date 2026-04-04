@@ -1,0 +1,115 @@
+configuration {
+    modi: "run,drun,window";
+    icon-theme: "Oranchelo";
+    show-icons: true;
+    drun-display-format: "{icon}  {name}";
+    location: 0;
+    disable-history: false;
+    hide-scrollbar: true;
+    sidebar-mode: false;
+
+    display-drun: " Apps ";
+    display-run: " Run ";
+    display-window: " Windows ";
+
+    font: "Iosevka Nerd Font ExtraBold 13";
+}
+
+@theme "/dev/null"
+
+* {
+    bg-col:  #1a1b26;
+    bg-col-light: #16161e;
+    border-col: #7aa2f7;
+    selected-col: #7aa2f7;
+    blue: #7aa2f7;
+    fg-col: #c0caf5;
+    fg-col2: #f7768e;
+    grey: #565f89;
+
+    width: 500;
+    background-color: transparent;
+}
+
+window {
+    location: center;
+    anchor: center;
+    height: 320px;
+    border: 2px;
+    border-radius: 16px;
+    border-color: @border-col;
+    background-color: @bg-col;
+    padding: 20px;
+}
+
+mainbox {
+    spacing: 12px;
+    background-color: transparent;
+}
+
+inputbar {
+    children: [prompt, entry];
+    background-color: @bg-col-light;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+prompt {
+    text-color: @blue;
+    background-color: transparent;
+    content: "  ";
+}
+
+entry {
+    text-color: @fg-col;
+    background-color: transparent;
+}
+
+listview {
+    columns: 1;
+    lines: 6;
+    spacing: 6px;
+    background-color: transparent;
+}
+
+element {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: @bg-col-light;
+    text-color: @fg-col;
+}
+
+element selected {
+    background-color: @blue;
+    text-color: @bg-col;
+}
+
+element-icon {
+    size: 28px;
+    background-color: transparent;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+    vertical-align: 0.5;
+}
+
+mode-switcher {
+    enabled: false;
+}
+
+button {
+    background-color: transparent;
+}
+
+message {
+    background-color: @bg-col-light;
+    border-radius: 10px;
+    padding: 6px;
+}
+
+textbox {
+    text-color: @blue;
+    background-color: transparent;
+}
