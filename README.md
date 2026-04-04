@@ -1,2 +1,2 @@
 Prerequisites:
-hyprland rofi waybar hyprpaper alacritty hyprshot pcmanfm ttf-iosevka-nerd
+hyprland rofi noctalia-shell hyprpaper alacritty hyprshot pcmanfm ttf-iosevka-nerd slurp wl-clipboard grim
