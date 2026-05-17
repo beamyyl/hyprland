@@ -1,172 +1,223 @@
--- ──────────────────────────────────────────────────────────────────
--- MONITORS
--- ──────────────────────────────────────────────────────────────────
+# ──────────────────────────────────────────────────────────────────
+# MONITORS
+# ──────────────────────────────────────────────────────────────────
 
-hl.monitor({
-    output   = "DP-2",
-    mode     = "1920x1080@180",
-    position = "0x0",
-    scale    = "1",
-})
+monitor = DP-2, 1920x1080@180, 0x0, 1
 
--- ──────────────────────────────────────────────────────────────────
--- AUTOSTART
--- ──────────────────────────────────────────────────────────────────
+# ──────────────────────────────────────────────────────────────────
+# AUTOSTART
+# ──────────────────────────────────────────────────────────────────
 
-hl.on("hyprland.start", function () 
-    hl.exec_cmd("dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
-    hl.exec_cmd("/usr/libexec/xdg-desktop-portal-hyprland")
-    hl.exec_cmd("/usr/libexec/xdg-desktop-portal")
-    hl.exec_cmd("blueman-applet")
-    hl.exec_cmd("nm-applet --indicator")
-    hl.exec_cmd("dunst")
-    hl.exec_cmd("qs -c noctalia-shell")
-    hl.exec_cmd("gentoo-pipewire-launcher")
-    hl.exec_cmd("hyprctl setcursor Notwaita-Black 24")
-end)
+exec-once = dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec-once = /usr/libexec/xdg-desktop-portal-hyprland
+exec-once = /usr/libexec/xdg-desktop-portal
+exec-once = blueman-applet
+exec-once = nm-applet --indicator
+exec-once = dunst
+exec-once = qs -c noctalia-shell
+exec-once = gentoo-pipewire-launcher
+exec-once = hyprctl setcursor Notwaita-Black 24
 
--- ──────────────────────────────────────────────────────────────────
--- ENVIRONMENT VARIABLES
--- ──────────────────────────────────────────────────────────────────
 
-hl.env("XCURSOR_SIZE", "24")
-hl.env("XCURSOR_THEME", "default")
-hl.env("QT_QPA_PLATFORM", "wayland")
-hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
-hl.env("GDK_BACKEND", "wayland,x11")
-hl.env("SDL_VIDEODRIVER", "wayland")
-hl.env("CLUTTER_BACKEND", "wayland")
+# ──────────────────────────────────────────────────────────────────
+# ENVIRONMENT VARIABLES
+# ──────────────────────────────────────────────────────────────────
 
--- ──────────────────────────────────────────────────────────────────
--- LOOK AND FEEL
--- ──────────────────────────────────────────────────────────────────
+env = XCURSOR_SIZE,24
+env = XCURSOR_THEME,default
+env = QT_QPA_PLATFORM,wayland
+env = QT_QPA_PLATFORMTHEME,qt6ct
+env = GDK_BACKEND,wayland,x11
+env = SDL_VIDEODRIVER,wayland
+env = CLUTTER_BACKEND,wayland
 
-hl.config({
-    general = {
-        gaps_in     = 3,
-        gaps_out    = 5,
-        border_size = 3,
-        col = {
-            active_border   = "rgba(7aa2f7ff)",
-            inactive_border = "rgba(24283bff)",
-        },
-        resize_on_border = true,
-        layout           = "master",
-    },
 
-    dwindle = {
-        pseudotile     = false,
-        preserve_split = true,
-    },
+# ──────────────────────────────────────────────────────────────────
+# GENERAL
+# ──────────────────────────────────────────────────────────────────
 
-    input = {
-        follow_mouse  = 1,
-        sensitivity   = 0,
-        accel_profile = "flat",
-        repeat_delay  = 360,
-        repeat_rate   = 25,
+general {
+    gaps_in          = 3
+    gaps_out         = 5
+    border_size      = 3
+    col.active_border   = rgba(7aa2f7ff)
+    col.inactive_border = rgba(24283bff)
+    resize_on_border = true
+    layout           = master
+}
 
-        touchpad = {
-            natural_scroll = true,
-        },
-    },
 
-    decoration = {
-        rounding          = 6,
-        active_opacity    = 1.0,
-        inactive_opacity  = 0.85,
-        fullscreen_opacity = 1.0,
+# ──────────────────────────────────────────────────────────────────
+# DWINDLE LAYOUT
+# ──────────────────────────────────────────────────────────────────
 
-        shadow = {
-            enabled = false,
-        },
+dwindle {
+    pseudotile     = false
+    preserve_split = true
+}
 
-        blur = {
-            enabled           = true,
-            size              = 5,
-            passes            = 3,
-            new_optimizations = true,
-            xray              = false,
-        },
-    },
 
-    misc = {
-        disable_hyprland_logo    = true,
-        disable_splash_rendering = true,
-        focus_on_activate        = true,
-        animate_manual_resizes   = true,
-    },
-})
+# ──────────────────────────────────────────────────────────────────
+# INPUT
+# ──────────────────────────────────────────────────────────────────
 
--- ──────────────────────────────────────────────────────────────────
--- ANIMATIONS
--- ──────────────────────────────────────────────────────────────────
+input {
+    follow_mouse  = 1
+    sensitivity   = 0
+    accel_profile = flat        # no pointer acceleration
 
-hl.curve("easeOut", { type = "bezier", points = { {0.0, 0.9}, {0.57, 1.0} } })
-hl.curve("easeIn",  { type = "bezier", points = { {0.4, 0.0}, {1.0, 0.6}  } })
-hl.curve("snap",    { type = "bezier", points = { {0.1, 0.9}, {0.2, 1.0}  } })
+    # xset r rate 360 25  →  repeat_rate = 25 repeats/sec, repeat_delay = 360ms
+    repeat_delay  = 360
+    repeat_rate   = 25
 
-hl.animation({ leaf = "windowsIn",   enabled = true, speed = 4, bezier = "easeOut", style = "popin 80%" })
-hl.animation({ leaf = "windowsOut",  enabled = true, speed = 4, bezier = "easeIn",  style = "popin 80%" })
-hl.animation({ leaf = "windowsMove", enabled = true, speed = 2, bezier = "snap" })
-hl.animation({ leaf = "border",      enabled = true, speed = 3, bezier = "easeOut" })
-hl.animation({ leaf = "workspaces",  enabled = true, speed = 3, bezier = "easeOut", style = "slidevert" })
-hl.animation({ leaf = "fadeIn",      enabled = true, speed = 2, bezier = "easeOut" })
-hl.animation({ leaf = "fadeOut",     enabled = true, speed = 2, bezier = "easeIn" })
-hl.animation({ leaf = "fadeLayers",  enabled = true, speed = 2, bezier = "easeOut" })
+    touchpad {
+        natural_scroll = true
+    }
+}
 
--- ──────────────────────────────────────────────────────────────────
--- KEYBINDINGS
--- ──────────────────────────────────────────────────────────────────
 
-local mod = "SUPER"
+# ──────────────────────────────────────────────────────────────────
+# DECORATION
+# ──────────────────────────────────────────────────────────────────
 
--- --- Terminal & Apps ---
-hl.bind("CTRL ALT + T", hl.dsp.exec_cmd("alacritty"))
-hl.bind(mod .. " + E",   hl.dsp.exec_cmd("pcmanfm"))
-hl.bind(mod .. " + R",   hl.dsp.exec_cmd("rofi -show drun"))
-hl.bind("Print",         hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'))
+decoration {
+    rounding          = 6
 
--- --- Window focus ---
-hl.bind(mod .. " + left",  hl.dsp.focus({ direction = "left" }))
-hl.bind(mod .. " + down",  hl.dsp.focus({ direction = "down" }))
-hl.bind(mod .. " + up",    hl.dsp.focus({ direction = "up" }))
-hl.bind(mod .. " + right", hl.dsp.focus({ direction = "right" }))
+    active_opacity    = 1.0
+    inactive_opacity  = 0.85
+    fullscreen_opacity = 1.0
 
--- --- Move windows ---
-hl.bind(mod .. " + SHIFT + left",  hl.dsp.window.move({ direction = "left" }))
-hl.bind(mod .. " + SHIFT + down",  hl.dsp.window.move({ direction = "down" }))
-hl.bind(mod .. " + SHIFT + up",    hl.dsp.window.move({ direction = "up" }))
-hl.bind(mod .. " + SHIFT + right", hl.dsp.window.move({ direction = "right" }))
+    shadow {
+        enabled      = false
+    }
 
--- --- Fullscreen / floating ---
-hl.bind(mod .. " + F", hl.dsp.fullscreen(0))
-hl.bind(mod .. " + T", hl.dsp.window.float({ action = "toggle" }))
+    blur {
+        enabled           = true
+        size              = 5
+        passes            = 3
+        new_optimizations = true
+        xray              = false
+    }
+}
 
--- --- Close / session ---
-hl.bind("ALT + F4",        hl.dsp.window.close())
-hl.bind(mod .. " + SHIFT + E", hl.dsp.exit())
-hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("hyprctl reload")) -- Alternative for forcerendererreload if missing in direct api
 
--- --- Cycle windows ---
-hl.bind("ALT + Tab", hl.dsp.focus({ window = "next" }))
+# ──────────────────────────────────────────────────────────────────
+# ANIMATIONS
+# ──────────────────────────────────────────────────────────────────
 
--- --- Workspaces: focus & moving active window ---
-for i = 1, 10 do
-    local key = i % 10 -- Maps 10 to key 0
-    hl.bind(mod .. " + " .. key,         hl.dsp.focus({ workspace = i }))
-    hl.bind(mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
-end
+animations {
+    enabled = true
 
--- --- Mouse bindings ---
-hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
-hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+    bezier = easeOut, 0.0, 0.9, 0.57, 1.0
+    bezier = easeIn,  0.4, 0.0, 1.0,  0.6
+    bezier = snap,    0.1, 0.9, 0.2,  1.0
 
--- --- Audio ---
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_SINK@ 5%+"))
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_SINK@ 5%-"))
-hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_SINK@ toggle"))
+    animation = windowsIn,   1, 4, easeOut, popin 80%
+    animation = windowsOut,  1, 4, easeIn,  popin 80%
+    animation = windowsMove, 1, 2, snap
+    animation = border,      1, 3, easeOut
+    animation = workspaces,  1, 3, easeOut, slidevert
+    animation = fadeIn,      1, 2, easeOut
+    animation = fadeOut,     1, 2, easeIn
+    animation = fadeLayers,  1, 2, easeOut
+}
 
--- --- Brightness ---
-hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("brightnessctl set +5%"))
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"))
+
+# ──────────────────────────────────────────────────────────────────
+# MISC
+# ──────────────────────────────────────────────────────────────────
+
+misc {
+    disable_hyprland_logo    = true
+    disable_splash_rendering = true
+    focus_on_activate        = true
+    animate_manual_resizes   = true
+}
+
+# ──────────────────────────────────────────────────────────────────
+# WORKSPACES
+# ──────────────────────────────────────────────────────────────────
+
+workspace = 1,
+workspace = 2,
+workspace = 3,
+workspace = 4,
+workspace = 5,
+workspace = 6,
+workspace = 7,
+workspace = 8,
+workspace = 9,
+workspace = 10,
+
+
+# ──────────────────────────────────────────────────────────────────
+# KEYBINDS
+# ──────────────────────────────────────────────────────────────────
+
+$mod = SUPER
+
+# --- Terminal & Apps ---
+bind = CTRL ALT, T,   exec, alacritty
+bind = $mod, E,       exec, pcmanfm
+bind = $mod, R,       exec, rofi -show drun
+bind = , Print,       exec, grim -g "$(slurp)" - | wl-copy
+
+# --- Window focus ---
+bind = $mod, left,  movefocus, l
+bind = $mod, down,  movefocus, d
+bind = $mod, up,    movefocus, u
+bind = $mod, right, movefocus, r
+
+# --- Move windows ---
+bind = $mod SHIFT, left,  movewindow, l
+bind = $mod SHIFT, down,  movewindow, d
+bind = $mod SHIFT, up,    movewindow, u
+bind = $mod SHIFT, right, movewindow, r
+
+# --- Fullscreen / floating ---
+bind = $mod, F, fullscreen, 0
+bind = $mod, T, togglefloating
+
+# --- Close / session ---
+bind = ALT, F4,       killactive
+bind = $mod SHIFT, E, exit
+bind = $mod SHIFT, S, forcerendererreload
+
+# --- Cycle windows ---
+bind = ALT, Tab, cyclenext
+
+# --- Workspaces: focus ---
+bind = $mod, 1, workspace, 1
+bind = $mod, 2, workspace, 2
+bind = $mod, 3, workspace, 3
+bind = $mod, 4, workspace, 4
+bind = $mod, 5, workspace, 5
+bind = $mod, 6, workspace, 6
+bind = $mod, 7, workspace, 7
+bind = $mod, 8, workspace, 8
+bind = $mod, 9, workspace, 9
+bind = $mod, 0, workspace, 10
+
+# --- Workspaces ---
+bind = $mod SHIFT, 1, movetoworkspace, 1
+bind = $mod SHIFT, 2, movetoworkspace, 2
+bind = $mod SHIFT, 3, movetoworkspace, 3
+bind = $mod SHIFT, 4, movetoworkspace, 4
+bind = $mod SHIFT, 5, movetoworkspace, 5
+bind = $mod SHIFT, 6, movetoworkspace, 6
+bind = $mod SHIFT, 7, movetoworkspace, 7
+bind = $mod SHIFT, 8, movetoworkspace, 8
+bind = $mod SHIFT, 9, movetoworkspace, 9
+bind = $mod SHIFT, 0, movetoworkspace, 10
+# --- Other binds lol ---
+bindm = $mod, mouse:272, movewindow
+bindm = $mod, mouse:273, resizewindow
+
+# --- Audio ---
+bind = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%+
+bind = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%-
+bind = , XF86AudioMute,        exec, wpctl set-mute @DEFAULT_SINK@ toggle
+
+# --- Brightness ---
+bind = , XF86MonBrightnessUp,   exec, brightnessctl set +5%
+bind = , XF86MonBrightnessDown, exec, brightnessctl set 5%-
